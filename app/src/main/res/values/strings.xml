@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">App1</string>
+    <string name="action_settings" translatable="false">Settings</string>
+    <string name="word">temperature trans</string>
+    <string name="number">pls input f:</string>
+    <string name="result">result is</string>
+
+</resources>
