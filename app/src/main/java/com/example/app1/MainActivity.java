@@ -31,8 +31,8 @@ public class MainActivity extends AppCompatActivity {
                 double number=Double.valueOf(s);
                 TextView result=findViewById(R.id.result);
                 double re=(number-32)*1.8;
-                //result.setText("我是setonclick");
-                result.setText("setonclick result:"+String.valueOf(re));
+                result.setText("我是setonclick");
+
             }
         });
     }
