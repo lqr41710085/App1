@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">welcom!</string>
-    <string name="number">请输入华氏温度</string>
     <string name="word">摄氏温度为：</string>
-    <string name="result">结果为：</string>
+    <string name="button1">加三分</string>
+    <string name="button2">加两分</string>
+    <string name="button3">加一分</string>
+    <string name="reset">清零</string>
+    <string name="grade">"0 "</string>
 </resources>
