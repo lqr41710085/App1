@@ -17,68 +17,52 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn1= findViewById(R.id.button1);
-        Button btn2= findViewById(R.id.button2);
-        Button btn3= findViewById(R.id.button3);
-        Button btn4= findViewById(R.id.button4);
-        Button btn5= findViewById(R.id.button5);
-        Button btn6= findViewById(R.id.button6);
-        Button reset= findViewById(R.id.reset);
-        btn1.setOnClickListener(new View.OnClickListener() {
+        Button bt1=findViewById(R.id.button);
+        Button bt2=findViewById(R.id.button2);
+        Button bt3=findViewById(R.id.button3);
+        Button bt4=findViewById(R.id.button4);
+        bt1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView grade=findViewById(R.id.grades);
-                String gra=grade.getText().toString();
-                grade.setText(String.valueOf(Integer.valueOf(gra)+3));
+                TextView edit = findViewById(R.id.editText);
+                TextView text=findViewById(R.id.textView3);
+                double n=Double.parseDouble(edit.getText().toString());
+                n=n*0.147;
+                String s="转换后为 "+String.format("%.4f",n).toString()+" 美元";
+                text.setText(s);
             }
         });
-        btn2.setOnClickListener(new View.OnClickListener() {
+        bt2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView grade=findViewById(R.id.grades);
-                String gra=grade.getText().toString();
-                grade.setText(String.valueOf(Integer.valueOf(gra)+2));
+                TextView edit = findViewById(R.id.editText);
+                TextView text=findViewById(R.id.textView3);
+                double n2=Double.parseDouble(edit.getText().toString());
+                n2=n2*0.125;
+                String s2="转换后为 "+String.format("%.2f",n2).toString()+" 欧元";
+                text.setText(s2);
             }
         });
-        btn3.setOnClickListener(new View.OnClickListener() {
+        bt3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView grade=findViewById(R.id.grades);
-                String gra=grade.getText().toString();
-                grade.setText(String.valueOf(Integer.valueOf(gra)+1));
+                TextView edit = findViewById(R.id.editText);
+                TextView text=findViewById(R.id.textView3);
+                double n3=Double.parseDouble(edit.getText().toString());
+                n3=n3*15.372;
+                String s3="转换后为 "+String.format("%.2f",n3).toString()+" 日元";
+                text.setText(s3);
             }
         });
-        btn4.setOnClickListener(new View.OnClickListener() {
+        bt4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView grade=findViewById(R.id.grades2);
-                String gra=grade.getText().toString();
-                grade.setText(String.valueOf(Integer.valueOf(gra)+3));
-            }
-        });
-        btn5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView grade=findViewById(R.id.grades2);
-                String gra=grade.getText().toString();
-                grade.setText(String.valueOf(Integer.valueOf(gra)+2));
-            }
-        });
-        btn6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView grade=findViewById(R.id.grades2);
-                String gra=grade.getText().toString();
-                grade.setText(String.valueOf(Integer.valueOf(gra)+1));
-            }
-        });
-        reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView grade1=findViewById(R.id.grades);
-                TextView grade2=findViewById(R.id.grades2);
-                grade1.setText("0");
-                grade2.setText("0");
+                TextView edit = findViewById(R.id.editText);
+                TextView text=findViewById(R.id.textView3);
+                double n4=Double.parseDouble(edit.getText().toString());
+                n4=n4*1.149;
+                String s4="转换后为 "+String.format("%.2f",n4).toString()+" 港币";
+                text.setText(s4);
             }
         });
     }

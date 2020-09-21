@@ -7,161 +7,80 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginBottom="68dp"
-        android:backgroundTint="#2196F3"
-        android:text="@string/reset"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="300dp"
-        android:backgroundTint="#2196F3"
-
-        android:text="@string/button3"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/button2" />
-
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="368dp"
-        android:backgroundTint="#2196F3"
-
-        android:text="@string/button2"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button1"
-        app:layout_constraintStart_toStartOf="@+id/button1" />
-
-
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="436dp"
-        android:backgroundTint="#2196F3"
-
-        android:text="@string/button1"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
-        android:id="@+id/team1"
-        android:layout_width="120dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="56dp"
-        android:background="#FCFAFA"
-        android:gravity="center_horizontal"
-        android:text="@string/team1"
+        android:id="@+id/textView2"
+        android:layout_width="131dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:text="汇率转换"
         android:textSize="20sp"
-        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        android:textColor="@color/cardview_dark_background"
+        android:gravity="center_horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/team2"
-        android:layout_width="120dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="56dp"
-        android:background="#FCFAFA"
-        android:gravity="center_horizontal"
-        android:text="@string/team2"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="250dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="40dp"
+        android:ems="10"
+        android:hint="请输入需转换的人民币值"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
-    <TextView
-        android:id="@+id/grades"
-        android:layout_width="139dp"
-        android:layout_height="102dp"
-        android:gravity="center_horizontal"
-        android:text="@string/grade"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="70sp"
-        app:layout_constraintBottom_toTopOf="@+id/button1"
-        app:layout_constraintEnd_toEndOf="@+id/button1"
-        app:layout_constraintStart_toStartOf="@+id/button1"
-        app:layout_constraintTop_toBottomOf="@+id/team1"
-        app:layout_constraintVertical_bias="0.448" />
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#00BCD4"
+        android:text="美元转换"
+        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 
-    <TextView
-        android:id="@+id/grades2"
-        android:layout_width="139dp"
-        android:layout_height="102dp"
-        android:gravity="center_horizontal"
-        android:text="@string/grade2"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="70sp"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/grades"
-        app:layout_constraintTop_toBottomOf="@+id/team2"
-        app:layout_constraintVertical_bias="0.448" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="#00BCD4"
+        android:text="欧元转换"
+        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#00BCD4"
+        android:text="日元转换"
+        app:layout_constraintStart_toStartOf="@+id/button"
+        app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <Button
         android:id="@+id/button4"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="436dp"
-        android:backgroundTint="#2196F3"
-        android:text="@string/button4"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/grades2"
-        app:layout_constraintStart_toStartOf="@+id/grades2" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#00BCD4"
+        android:text="港币转换"
+        app:layout_constraintEnd_toEndOf="@+id/button2"
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
-
-    <Button
-        android:id="@+id/button5"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="368dp"
-        android:backgroundTint="#2196F3"
-        android:text="@string/button5"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4" />
-
-    <Button
-        android:id="@+id/button6"
-        android:layout_width="160dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="300dp"
-        android:backgroundTint="#2196F3"
-        android:text="@string/button6"
-        android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="@+id/button5" />
-
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="1dp"
-        android:layout_height="364dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button4"
-        app:layout_constraintStart_toEndOf="@+id/button1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.138"
-        app:srcCompat="@android:color/darker_gray" />
-
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="247dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="208dp"
+        android:text="转换后为："
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/editText"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/editText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
