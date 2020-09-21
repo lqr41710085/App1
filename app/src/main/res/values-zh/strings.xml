@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">welcom!</string>
-    <string name="word">摄氏温度为：</string>
     <string name="button1">加三分</string>
     <string name="button2">加两分</string>
-    <string name="button3">加一分</string>
+    <string name="button3">罚球</string>
     <string name="reset">清零</string>
     <string name="grade">"0 "</string>
+    <string name="team1">A队</string>
+    <string name="button4">加三分</string>
+    <string name="button5">加两分</string>
+    <string name="button6">罚球</string>
+    <string name="team2">B队</string>
+    <string name="grade2">0</string>
 </resources>
