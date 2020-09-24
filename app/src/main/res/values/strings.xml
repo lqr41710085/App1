@@ -12,6 +12,12 @@
     <string name="reset">reset</string>
     <string name="grade">0</string>
     <string name="grade2">0</string>
+    <string name="config">CONFIG</string>
+    <string name="dol">dollar</string>
+    <string name="eur">europea</string>
+    <string name="jap">japan</string>
+    <string name="hk">hongkong</string>
+    <string name="save">SAVE</string>
 
 
 </resources>
