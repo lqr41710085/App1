@@ -103,10 +103,12 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.about) {
+            Toast.makeText(this,"i am about",Toast.LENGTH_SHORT).show();
+        }
+        if (id == R.id.settings) {
             Toast.makeText(this,"i am settings",Toast.LENGTH_SHORT).show();
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }

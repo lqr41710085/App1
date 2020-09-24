@@ -18,6 +18,8 @@
     <string name="jap">japan</string>
     <string name="hk">hongkong</string>
     <string name="save">SAVE</string>
+    <string name="settings">settings</string>
+    <string name="about">about</string>
 
 
 </resources>
