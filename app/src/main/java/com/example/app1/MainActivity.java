@@ -17,6 +17,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,6 +31,7 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Runnable{
     double dol,eur,jap,hk;
@@ -36,26 +43,54 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     @Override
     public void run() {
         String html="";
-        URL url =null;
-        Log.i(TAG,"hhhrun:ok");
+        //URL url =null;
+
+
+        Document doc= null;
+        Bundle bd=new Bundle();
         try {
-            url = new URL("https://www.usd-cny.com/bankofchina.htm");
+            String url="https://www.usd-cny.com/bankofchina.htm";
+            doc = Jsoup.connect(url).get();
+            Log.i(TAG,"hhhhhdoc:"+doc.title());
+            Elements tables= doc.getElementsByTag("table");
+            Element table=tables.first();
+            Elements tds=table.getElementsByTag("td");
+            for(int i=0;i<tds.size();i+=6){
+                Element td1=tds.get(i);
+                Element td2=tds.get(i+5);
+                String name=td1.text();
+                String rate=td2.text();
+                if(name.equals("美元")||name.equals("日元")||name.equals("欧元")||name.equals("港币")){
+                    float v=100f/Float.parseFloat(rate);
+                    bd.putFloat(name,v);
+                    Log.i(TAG,name+"hhhhh: "+v+"\n");
+
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        /* try {
+           url = new URL("https://www.usd-cny.com/bankofchina.htm");
             HttpURLConnection http=(HttpURLConnection)url.openConnection();
             Log.i(TAG,"hhhconnect to internet");
             InputStream in = http.getInputStream();
             html=inputStream2String(in);
             Log.i(TAG,"hhhhtml:ok");
 
+
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        */
         Message msg=handler.obtainMessage(4);
-        msg.obj=html;
+        //msg.obj=html;
+        msg.obj=bd;
         handler.sendMessage(msg);
-
-        Log.i(TAG,"hhhsend:"+html);
+        Log.i(TAG,"hhhhsend");
     }
 
     private String inputStream2String(InputStream inputStream) throws IOException{
@@ -75,13 +110,14 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         setContentView(R.layout.activity_main);
         Thread t=new Thread(this);
         t.start();
-        Log.i(TAG,"hhhstart:ok");
+
         handler=new Handler(){
             public void handleMessage(Message msg){
                 if(msg.what==4){
-                    String str=(String)msg.obj;
-                    Log.i(TAG,"hhhhandler:"+str);
-
+                   // String str=(String)msg.obj;
+                    //Log.i(TAG,"hhhhandler:"+str);
+                    Bundle bf=(Bundle)msg.obj;
+                    Log.i(TAG,"hhhhh"+bf.toString());
                 }
                 super.handleMessage(msg);
             }
