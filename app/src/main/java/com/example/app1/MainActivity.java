@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity implements Runnable{
     Handler handler;
     @Override
     public void run() {
-        String html="";
-        //URL url =null;
 
 
         Document doc= null;
@@ -70,24 +68,8 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /* try {
-           url = new URL("https://www.usd-cny.com/bankofchina.htm");
-            HttpURLConnection http=(HttpURLConnection)url.openConnection();
-            Log.i(TAG,"hhhconnect to internet");
-            InputStream in = http.getInputStream();
-            html=inputStream2String(in);
-            Log.i(TAG,"hhhhtml:ok");
 
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        */
         Message msg=handler.obtainMessage(4);
-        //msg.obj=html;
         msg.obj=bd;
         handler.sendMessage(msg);
         Log.i(TAG,"hhhhsend");
@@ -110,25 +92,24 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         setContentView(R.layout.activity_main);
         Thread t=new Thread(this);
         t.start();
-
+        sp=this.getSharedPreferences("rate",MODE_PRIVATE);
         handler=new Handler(){
             public void handleMessage(Message msg){
                 if(msg.what==4){
                    // String str=(String)msg.obj;
                     //Log.i(TAG,"hhhhandler:"+str);
-                    Bundle bf=(Bundle)msg.obj;
-                    Log.i(TAG,"hhhhh"+bf.toString());
+                    Bundle bd2=(Bundle)msg.obj;
+                    editor=sp.edit();
+                    editor.putFloat("dol",bd2.getFloat("美元"));
+                    editor.putFloat("eur",bd2.getFloat("欧元"));
+                    editor.putFloat("jap",bd2.getFloat("日元"));
+                    editor.putFloat("hk",bd2.getFloat("港币"));
+                    editor.apply();
+                    Log.i(TAG,"hhh"+bd2.toString());
                 }
                 super.handleMessage(msg);
             }
         };
-        sp=this.getSharedPreferences("rate",MODE_PRIVATE);
-        editor=sp.edit();
-        /*.putFloat("dol",0.147f);
-        editor.putFloat("eur",0.125f);
-        editor.putFloat("jap",15.372f);
-        editor.putFloat("hk",1.149f);
-        editor.apply();*/
         dol=sp.getFloat("dol",0.0f);
         eur=sp.getFloat("eur",0.0f);
         jap=sp.getFloat("jap",0.0f);
