@@ -26,7 +26,7 @@ import java.util.List;
 public class RateListActivity extends ListActivity implements Runnable{
     private  static final String TAG="RateListActivity";
     Handler handler;
-
+    ArrayList<HashMap<String, String>> listItems;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,26 +39,30 @@ public class RateListActivity extends ListActivity implements Runnable{
         handler=new Handler(){
             public void handleMessage(Message msg){
                 if(msg.what==4){
-                    List<String> list=new ArrayList<String>();
                     Bundle bd=(Bundle)msg.obj;
+                   /* List<String> list=new ArrayList<String>();
+
                     for(String key:bd.keySet()){
                         list.add(key+"==>"+bd.getFloat(key));
                     }
 
                     ListAdapter adapter=new ArrayAdapter<String>(RateListActivity.this,android.R.layout.simple_list_item_1,list);
-
-                   /*for(int i=0;i<4;i++){
-                        HashMap<String,String> map=new HashMap<String, String>();
-                        map.put(name[i],name[i]);
-                        map.put(name[i]+"汇率",String.valueOf(bd.getFloat(name[i])));
-                        listItems.add(map);
-                    }
                     */
-                   setListAdapter(adapter);
+                    listItems= new ArrayList<HashMap<String, String>>();
+                   for(String key:bd.keySet()){
+                        HashMap<String,String> map=new HashMap<String, String>();
+                        map.put("name",key);
+                        map.put("rate",String.valueOf(bd.getFloat(key)));
+                        listItems.add(map);
+
+                    }
+
                 }
                 super.handleMessage(msg);
             }
         };
+        SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.activity_rate_list, new String[]{"name", "rate"}, new int[]{R.id.itemTitle, R.id.itemDetail});
+        this.setListAdapter(adapter);
 
 
     }
