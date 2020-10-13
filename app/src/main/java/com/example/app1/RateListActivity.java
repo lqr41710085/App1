@@ -71,15 +71,15 @@ public class RateListActivity extends ListActivity implements Runnable{
                    // setListAdapter(adapter);
                     MyAdapter myAdapter=new MyAdapter(RateListActivity.this, R.layout.activity_rate_list,listItems);
                     setListAdapter(myAdapter);
+
                 }
                 super.handleMessage(msg);
 
             }
         };
+        this.getListView().setEmptyView(findViewById(R.id.nodata));
 
-
-
-    }
+   }
 
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
@@ -110,11 +110,11 @@ public class RateListActivity extends ListActivity implements Runnable{
     public void run() {
         Document doc= null;
         Bundle bd=new Bundle();
-        Log.i(TAG,"hhhconnect");
+
         try {
             String url="https://www.usd-cny.com/bankofchina.htm";
             doc = Jsoup.connect(url).get();
-            Log.i(TAG,"hhhhhdoc:"+doc.title());
+            Log.i(TAG,"hhhconnect"+doc.title());
             Elements tables= doc.getElementsByTag("table");
             Element table=tables.first();
             Elements tds=table.getElementsByTag("td");
