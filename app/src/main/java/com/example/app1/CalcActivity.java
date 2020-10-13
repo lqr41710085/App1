@@ -16,7 +16,7 @@ public class CalcActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calc);
         Intent v=getIntent();
-        String name=v.getStringExtra("name");
+        final String name=v.getStringExtra("name");
         final Float rate=Float.valueOf(v.getStringExtra("rate"));
         Log.i(TAG,"hhhname"+":"+rate);
 
@@ -24,7 +24,7 @@ public class CalcActivity extends AppCompatActivity {
         final TextView numtext=findViewById(R.id.num);
         final TextView resulttext=findViewById(R.id.reslut);
         nametext.setText(name);
-        resulttext.setText("转换结果");
+
         numtext.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -33,15 +33,17 @@ public class CalcActivity extends AppCompatActivity {
             }
             @Override
             public void onTextChanged(CharSequence s, int start, int before,int count) {
-                 Float num=Float.valueOf(numtext.getText().toString());
-                 Float result=num*rate;
-                 resulttext.setText(result.toString());
 
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if(s.length()>0) {
+                    Float num = Float.valueOf(numtext.getText().toString());
+                    Float result = num * rate;
+                    resulttext.setText(result.toString());
+                }else
+                    resulttext.setText(name+"汇率为 "+rate);
             }
 
 
