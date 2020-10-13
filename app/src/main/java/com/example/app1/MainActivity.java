@@ -31,6 +31,8 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Runnable{
@@ -53,6 +55,12 @@ public class MainActivity extends AppCompatActivity implements Runnable{
             Elements tables= doc.getElementsByTag("table");
             Element table=tables.first();
             Elements tds=table.getElementsByTag("td");
+
+            Elements ps=doc.getElementsByTag("p");
+            Element p=ps.get(0);
+            bd.putString("time",p.text());
+            Log.i(TAG,"hhhh"+p.text());//获取时间装入bundle
+
             for(int i=0;i<tds.size();i+=6){
                 Element td1=tds.get(i);
                 Element td2=tds.get(i+5);
@@ -99,13 +107,22 @@ public class MainActivity extends AppCompatActivity implements Runnable{
                    // String str=(String)msg.obj;
                     //Log.i(TAG,"hhhhandler:"+str);
                     Bundle bd2=(Bundle)msg.obj;
-                    editor=sp.edit();
-                    editor.putFloat("dol",bd2.getFloat("美元"));
-                    editor.putFloat("eur",bd2.getFloat("欧元"));
-                    editor.putFloat("jap",bd2.getFloat("日元"));
-                    editor.putFloat("hk",bd2.getFloat("港币"));
-                    editor.apply();
-                    Log.i(TAG,"hhh"+bd2.toString());
+                    //判断时间是否与上次写入时间相同，不同则更新，相同则为同一天，不更新
+                    String lasttime=sp.getString("time","0000-00-00");
+                    String time=bd2.get("time").toString().substring(12,22);
+                    Log.i(TAG,lasttime+" hhhh"+time);
+                    if(!time.equals(lasttime)){
+                        editor=sp.edit();
+                        editor.putFloat("dol",bd2.getFloat("美元"));
+                        editor.putFloat("eur",bd2.getFloat("欧元"));
+                        editor.putFloat("jap",bd2.getFloat("日元"));
+                        editor.putFloat("hk",bd2.getFloat("港币"));
+                        editor.putString("time",time);
+                        editor.apply();
+                        Log.i(TAG,"hhh已更新"+bd2.toString());
+                    }
+                    else
+                        Log.i(TAG,"同一天，不更新hhhh");
                 }
                 super.handleMessage(msg);
             }
@@ -163,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         in.putExtra("hk",hk);
 
         */
-        Log.i(TAG,"config: ok");
+        Log.i(TAG,"config: okhhh");
         startActivityForResult(in,1);
 
     }

@@ -3,11 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/acticity_rate_list"
+    android:id="@+id/activity_rate_list"
     android:paddingTop="20dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    tools:context=".RateListActivity"
+    tools:context="com.example.app1.RateListActivity"
     android:orientation="vertical">
 
 
@@ -18,6 +18,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="123"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
         <TextView
             android:layout_width="fill_parent"
@@ -25,6 +26,7 @@
             android:id="@+id/itemDetail"
             android:gravity="end"
             android:textSize="15sp"
+            android:textColor="@android:color/holo_red_light"
             android:text="456"
             />
     </LinearLayout>

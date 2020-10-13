@@ -5,13 +5,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,6 +27,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import static java.security.AccessController.getContext;
 
 public class RateListActivity extends ListActivity implements Runnable{
     private  static final String TAG="RateListActivity";
@@ -67,6 +75,7 @@ public class RateListActivity extends ListActivity implements Runnable{
 
     }
 
+
     @Override
     public void run() {
         Document doc= null;
@@ -98,4 +107,6 @@ public class RateListActivity extends ListActivity implements Runnable{
         handler.sendMessage(msg);
         Log.i(TAG,"hhhhsend");
     }
+
 }
+

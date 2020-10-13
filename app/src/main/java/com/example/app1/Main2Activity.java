@@ -21,8 +21,9 @@ public class Main2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         sp=this.getSharedPreferences("rate",MODE_PRIVATE);
-        Intent v=getIntent();
+
         /*
+        Intent v=getIntent();
         double dol= v.getDoubleExtra("dol",0.0f);
         double eur=v.getDoubleExtra("eur",0.0f);
         double jap=v.getDoubleExtra("jap",0.0f);
