@@ -61,16 +61,18 @@ public class RateListActivity extends ListActivity implements Runnable{
                         HashMap<String,String> map=new HashMap<String, String>();
                         map.put("name",key);
                         map.put("rate",String.valueOf(bd.getFloat(key)));
+                        Log.i(TAG,"hhh"+map.toString());
                         listItems.add(map);
 
                     }
-
+                    SimpleAdapter adapter = new SimpleAdapter(RateListActivity.this, listItems, R.layout.activity_rate_list, new String[]{"name", "rate"}, new int[]{R.id.itemTitle, R.id.itemDetail});
+                    setListAdapter(adapter);
                 }
                 super.handleMessage(msg);
+
             }
         };
-        SimpleAdapter adapter = new SimpleAdapter(this, listItems, R.layout.activity_rate_list, new String[]{"name", "rate"}, new int[]{R.id.itemTitle, R.id.itemDetail});
-        this.setListAdapter(adapter);
+
 
 
     }

@@ -10,24 +10,22 @@
     tools:context="com.example.app1.RateListActivity"
     android:orientation="vertical">
 
+    <TextView
 
-
-        <TextView
-
-            android:id="@+id/itemTitle"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="123"
-            android:textColor="@color/colorPrimary"
-            android:textSize="20sp" />
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/itemDetail"
-            android:gravity="end"
-            android:textSize="15sp"
-            android:textColor="@android:color/holo_red_light"
-            android:text="456"
-            />
-    </LinearLayout>
+        android:id="@+id/itemTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="123"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemDetail"
+        android:gravity="end"
+        android:textSize="15sp"
+        android:textColor="@android:color/holo_red_light"
+        android:text="456"
+        />
+</LinearLayout>
 
