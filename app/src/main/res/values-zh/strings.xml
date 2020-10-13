@@ -20,4 +20,6 @@
     <string name="save">保存</string>
     <string name="settings">设置</string>
     <string name="about">关于</string>
+    <string name="name">国家或地区</string>
+    <string name="result">结果</string>
 </resources>

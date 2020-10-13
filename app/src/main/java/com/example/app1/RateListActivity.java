@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -65,8 +67,10 @@ public class RateListActivity extends ListActivity implements Runnable{
                         listItems.add(map);
 
                     }
-                    SimpleAdapter adapter = new SimpleAdapter(RateListActivity.this, listItems, R.layout.activity_rate_list, new String[]{"name", "rate"}, new int[]{R.id.itemTitle, R.id.itemDetail});
-                    setListAdapter(adapter);
+                   // SimpleAdapter adapter = new SimpleAdapter(RateListActivity.this, listItems, R.layout.activity_rate_list, new String[]{"name", "rate"}, new int[]{R.id.itemTitle, R.id.itemDetail});
+                   // setListAdapter(adapter);
+                    MyAdapter myAdapter=new MyAdapter(RateListActivity.this, R.layout.activity_rate_list,listItems);
+                    setListAdapter(myAdapter);
                 }
                 super.handleMessage(msg);
 
@@ -77,6 +81,30 @@ public class RateListActivity extends ListActivity implements Runnable{
 
     }
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+
+            Object itemAtPosition = getListView().getItemAtPosition(position);
+            HashMap<String,String> map = (HashMap<String, String>) itemAtPosition;
+
+            String titleStr = map.get("name");
+            String detailStr = map.get("rate");
+           /*
+           TextView title = (TextView) v.findViewById(R.id.itemTitle);
+            TextView detail = (TextView)v.findViewById(R.id.itemDetail);
+
+
+            String title2 = String.valueOf(title.getText());
+            String detail2 = String.valueOf(detail.getText());
+            */
+            super.onListItemClick(l, v, position, id);
+            Intent intent =  new Intent(this, CalcActivity.class);
+            intent.putExtra("name",titleStr);
+            intent.putExtra("rate",detailStr);
+            Log.i(TAG,"hhhh"+titleStr+":"+detailStr);
+            this.startActivity(intent);
+
+    }
 
     @Override
     public void run() {

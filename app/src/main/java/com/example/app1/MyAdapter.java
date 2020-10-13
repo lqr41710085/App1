@@ -1,9 +1,11 @@
 package com.example.app1;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -29,9 +31,10 @@ public class MyAdapter extends ArrayAdapter {
         TextView title = (TextView) itemView.findViewById(R.id.itemTitle);
         TextView detail = (TextView) itemView.findViewById(R.id.itemDetail);
 
-        title.setText("国家或地区: " + map.get("ItemTitle"));
-        detail.setText("汇率: " + map.get("ItemDetail"));
+        title.setText(map.get("name"));
+        detail.setText("汇率: " + map.get("rate"));
 
-        return itemView; }
+        return itemView;
+    }
 
 }

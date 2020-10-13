@@ -20,6 +20,8 @@
     <string name="save">SAVE</string>
     <string name="settings">settings</string>
     <string name="about">about</string>
+    <string name="name">null</string>
+    <string name="result">0.0</string>
 
 
 </resources>
