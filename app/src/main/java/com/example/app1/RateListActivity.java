@@ -37,7 +37,7 @@ public class RateListActivity extends ListActivity implements Runnable{
     private  static final String TAG="RateListActivity";
     Handler handler;
     ArrayList<HashMap<String, String>> listItems;
-
+    RateManager ratemanager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,15 +50,9 @@ public class RateListActivity extends ListActivity implements Runnable{
             public void handleMessage(Message msg){
                 if(msg.what==4){
                     Bundle bd=(Bundle)msg.obj;
-                   /* List<String> list=new ArrayList<String>();
-
-                    for(String key:bd.keySet()){
-                        list.add(key+"==>"+bd.getFloat(key));
-                    }
-
-                    ListAdapter adapter=new ArrayAdapter<String>(RateListActivity.this,android.R.layout.simple_list_item_1,list);
-                    */
                     listItems= new ArrayList<HashMap<String, String>>();
+                    ratemanager=new RateManager(RateListActivity.this);
+                    int i=0;
                    for(String key:bd.keySet()){
                         HashMap<String,String> map=new HashMap<String, String>();
                         map.put("name",key);
@@ -66,18 +60,21 @@ public class RateListActivity extends ListActivity implements Runnable{
                         Log.i(TAG,"hhh"+map.toString());
                         listItems.add(map);
 
+                        RateItem item=new RateItem();
+                        item.setId(++i);
+                        item.setCurName(key);
+                        item.setCurRate(String.valueOf(bd.getFloat(key)));
+                        ratemanager.add(item);
                     }
-                   // SimpleAdapter adapter = new SimpleAdapter(RateListActivity.this, listItems, R.layout.activity_rate_list, new String[]{"name", "rate"}, new int[]{R.id.itemTitle, R.id.itemDetail});
-                   // setListAdapter(adapter);
-                    MyAdapter myAdapter=new MyAdapter(RateListActivity.this, R.layout.activity_rate_list,listItems);
-                    setListAdapter(myAdapter);
+                   MyAdapter myAdapter=new MyAdapter(RateListActivity.this, R.layout.activity_rate_list,listItems);
+                   setListAdapter(myAdapter);
 
                 }
                 super.handleMessage(msg);
 
             }
         };
-        this.getListView().setEmptyView(findViewById(R.id.nodata));
+
 
    }
 
@@ -101,7 +98,7 @@ public class RateListActivity extends ListActivity implements Runnable{
             Intent intent =  new Intent(this, CalcActivity.class);
             intent.putExtra("name",titleStr);
             intent.putExtra("rate",detailStr);
-            Log.i(TAG,"hhhh"+titleStr+":"+detailStr);
+           // Log.i(TAG,"hhhh"+titleStr+":"+detailStr);
             this.startActivity(intent);
 
     }

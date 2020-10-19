@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         try {
             String url="https://www.usd-cny.com/bankofchina.htm";
             doc = Jsoup.connect(url).get();
-            Log.i(TAG,"hhhhhdoc:"+doc.title());
+           // Log.i(TAG,"hhhhhdoc:"+doc.title());
             Elements tables= doc.getElementsByTag("table");
             Element table=tables.first();
             Elements tds=table.getElementsByTag("td");
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
             Elements ps=doc.getElementsByTag("p");
             Element p=ps.get(0);
             bd.putString("time",p.text());
-            Log.i(TAG,"hhhh"+p.text());//获取时间装入bundle
+           // Log.i(TAG,"hhhh"+p.text());//获取时间装入bundle
 
             for(int i=0;i<tds.size();i+=6){
                 Element td1=tds.get(i);
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
                 if(name.equals("美元")||name.equals("日元")||name.equals("欧元")||name.equals("港币")){
                     float v=100f/Float.parseFloat(rate);
                     bd.putFloat(name,v);
-                    Log.i(TAG,name+"hhhhh: "+v+"\n");
+                   // Log.i(TAG,name+"hhhhh: "+v+"\n");
 
                 }
             }
@@ -80,19 +80,10 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         Message msg=handler.obtainMessage(4);
         msg.obj=bd;
         handler.sendMessage(msg);
-        Log.i(TAG,"hhhhsend");
+       // Log.i(TAG,"hhhhsend");
     }
 
-    private String inputStream2String(InputStream inputStream) throws IOException{
-        String str="";
-        BufferedReader reader=new BufferedReader(new InputStreamReader(inputStream,"gb2312"));
-        StringBuffer sb=new StringBuffer();
-        while((str=reader.readLine())!=null){
-            Log.i(TAG,"in2str:"+str);
-            sb.append(str).append("\n");
-        }
-        return  sb.toString();
-    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -180,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         in.putExtra("hk",hk);
 
         */
-        Log.i(TAG,"config: okhhh");
+       // Log.i(TAG,"config: okhhh");
         startActivityForResult(in,1);
 
     }
@@ -203,30 +194,5 @@ public class MainActivity extends AppCompatActivity implements Runnable{
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.about) {
-            Toast.makeText(this,"i am about",Toast.LENGTH_SHORT).show();
-        }
-        if (id == R.id.settings) {
-            Toast.makeText(this,"i am settings",Toast.LENGTH_SHORT).show();
-        }
-        return true;
-    }
-
 
 }

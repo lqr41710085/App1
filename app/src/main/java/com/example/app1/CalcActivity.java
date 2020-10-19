@@ -18,7 +18,7 @@ public class CalcActivity extends AppCompatActivity {
         Intent v=getIntent();
         final String name=v.getStringExtra("name");
         final Float rate=Float.valueOf(v.getStringExtra("rate"));
-        Log.i(TAG,"hhhname"+":"+rate);
+        Log.i(TAG,"hhh"+name+":"+rate);
 
         TextView nametext=findViewById(R.id.name);
         final TextView numtext=findViewById(R.id.num);
