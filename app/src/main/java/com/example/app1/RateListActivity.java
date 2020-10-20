@@ -62,8 +62,7 @@ public class RateListActivity extends ListActivity implements Runnable{
 
                     ratemanager=new RateManager(RateListActivity.this);
 
-                    if(!time.equals(lasttime))
-                    {//时间不同则更新,同时记录时间
+                   if(!time.equals(lasttime)){//时间不同则更新,同时记录时间
                        Log.i(TAG,"hhh更新");
                         listItems= new ArrayList<HashMap<String, String>>();
                         editor=sp.edit();
@@ -84,10 +83,11 @@ public class RateListActivity extends ListActivity implements Runnable{
                             }
                         }
                     }
-                   else
+                  else
                        {
                         //时间相同，从数据库中读取
                         Log.i(TAG, "hhh不更新" );
+                        listItems= new ArrayList<HashMap<String, String>>();
                         int i=0;
                         for(String key:bd.keySet()) {
                             if(!key.equals("time")) {
