@@ -23,5 +23,8 @@ class RateItem {
     public void setId(int id){
         ID=id;
     }
+    public int getId(){
+        return ID;
+    }
 
 }

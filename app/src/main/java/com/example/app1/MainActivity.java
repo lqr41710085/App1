@@ -83,7 +83,16 @@ public class MainActivity extends AppCompatActivity implements Runnable{
        // Log.i(TAG,"hhhhsend");
     }
 
-
+    private String inputStream2String(InputStream inputStream) throws IOException{
+        String str="";
+        BufferedReader reader=new BufferedReader(new InputStreamReader(inputStream,"gb2312"));
+        StringBuffer sb=new StringBuffer();
+        while((str=reader.readLine())!=null){
+            Log.i(TAG,"in2str:"+str);
+            sb.append(str).append("\n");
+        }
+        return  sb.toString();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +104,7 @@ public class MainActivity extends AppCompatActivity implements Runnable{
         handler=new Handler(){
             public void handleMessage(Message msg){
                 if(msg.what==4){
-                   // String str=(String)msg.obj;
-                    //Log.i(TAG,"hhhhandler:"+str);
-                    Bundle bd2=(Bundle)msg.obj;
+                   Bundle bd2=(Bundle)msg.obj;
                     //判断时间是否与上次写入时间相同，不同则更新，相同则为同一天，不更新
                     String lasttime=sp.getString("time","0000-00-00");
                     String time=bd2.get("time").toString().substring(12,22);
@@ -194,5 +201,30 @@ public class MainActivity extends AppCompatActivity implements Runnable{
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.about) {
+            Toast.makeText(this,"i am about",Toast.LENGTH_SHORT).show();
+        }
+        if (id == R.id.settings) {
+            Toast.makeText(this,"i am settings",Toast.LENGTH_SHORT).show();
+        }
+        return true;
+    }
+
 
 }

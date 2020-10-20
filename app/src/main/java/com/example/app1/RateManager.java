@@ -9,7 +9,7 @@ import android.util.Log;
 public class RateManager {
     private DBHelper dbHelper;
     private String TBNAME;
-    private static final String TAG = "DBHELPER";
+    private static final String TAG = "RateManager";
     public RateManager(Context context){
         dbHelper=new DBHelper(context);
         TBNAME=DBHelper.TB_NAME;
@@ -38,5 +38,13 @@ public class RateManager {
         db.close();
         Log.i(TAG,"hhhhitem:"+item.getCurName()+"--"+item.getCurRate());
         return item;
+    }
+    public void update(RateItem item){
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("curname", item.getCurName());
+        values.put("currate", item.getCurRate());
+        db.update(TBNAME, values, "ID=?", new String[]{String.valueOf(item.getId())});
+        db.close();
     }
 }

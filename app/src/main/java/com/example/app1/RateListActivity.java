@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -37,6 +38,8 @@ public class RateListActivity extends ListActivity implements Runnable{
     private  static final String TAG="RateListActivity";
     Handler handler;
     ArrayList<HashMap<String, String>> listItems;
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
     RateManager ratemanager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,26 +49,60 @@ public class RateListActivity extends ListActivity implements Runnable{
         Thread t=new Thread(this);
         t.start();
 
+        sp=this.getSharedPreferences("rate",MODE_PRIVATE);
+
         handler=new Handler(){
             public void handleMessage(Message msg){
+
                 if(msg.what==4){
                     Bundle bd=(Bundle)msg.obj;
-                    listItems= new ArrayList<HashMap<String, String>>();
-                    ratemanager=new RateManager(RateListActivity.this);
-                    int i=0;
-                   for(String key:bd.keySet()){
-                        HashMap<String,String> map=new HashMap<String, String>();
-                        map.put("name",key);
-                        map.put("rate",String.valueOf(bd.getFloat(key)));
-                        Log.i(TAG,"hhh"+map.toString());
-                        listItems.add(map);
+                    String time=bd.get("time").toString().substring(12,22);
+                    String lasttime=sp.getString("time","0000-00-00");
+                    Log.i(TAG,"hhhh"+time+"--"+lasttime);
 
-                        RateItem item=new RateItem();
-                        item.setId(++i);
-                        item.setCurName(key);
-                        item.setCurRate(String.valueOf(bd.getFloat(key)));
-                        ratemanager.add(item);
+                    ratemanager=new RateManager(RateListActivity.this);
+
+                    if(!time.equals(lasttime))
+                    {//时间不同则更新,同时记录时间
+                       Log.i(TAG,"hhh更新");
+                        listItems= new ArrayList<HashMap<String, String>>();
+                        editor=sp.edit();
+                        editor.putString("time",time);
+                        editor.apply();
+                        int i=0;//从1开始id
+                        for(String key:bd.keySet()){
+                            if(!key.equals("time")) {
+                                HashMap<String, String> map = new HashMap<String, String>();
+                                map.put("name", key);
+                                map.put("rate", String.valueOf(bd.getFloat(key)));
+                                listItems.add(map);
+                                //数据库更新
+                                RateItem item = ratemanager.findById(++i);
+                                item.setCurName(key);
+                                item.setCurRate(String.valueOf(bd.getFloat(key)));
+                                ratemanager.update(item);
+                            }
+                        }
                     }
+                   else
+                       {
+                        //时间相同，从数据库中读取
+                        Log.i(TAG, "hhh不更新" );
+                        int i=0;
+                        for(String key:bd.keySet()) {
+                            if(!key.equals("time")) {
+                                RateItem item = ratemanager.findById(++i);
+                                String rate = item.getCurRate();
+                                String name = item.getCurName();
+                                Log.i(TAG, "hhh" + name + "--" + rate);
+                                HashMap<String, String> map = new HashMap<String, String>();
+                                map.put("name", name);
+                                map.put("rate", rate);
+                                listItems.add(map);
+                            }
+                         }
+                    }
+
                    MyAdapter myAdapter=new MyAdapter(RateListActivity.this, R.layout.activity_rate_list,listItems);
                    setListAdapter(myAdapter);
 
@@ -81,19 +118,14 @@ public class RateListActivity extends ListActivity implements Runnable{
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
 
+
             Object itemAtPosition = getListView().getItemAtPosition(position);
             HashMap<String,String> map = (HashMap<String, String>) itemAtPosition;
 
             String titleStr = map.get("name");
             String detailStr = map.get("rate");
-           /*
-           TextView title = (TextView) v.findViewById(R.id.itemTitle);
-            TextView detail = (TextView)v.findViewById(R.id.itemDetail);
 
 
-            String title2 = String.valueOf(title.getText());
-            String detail2 = String.valueOf(detail.getText());
-            */
             super.onListItemClick(l, v, position, id);
             Intent intent =  new Intent(this, CalcActivity.class);
             intent.putExtra("name",titleStr);
@@ -111,10 +143,13 @@ public class RateListActivity extends ListActivity implements Runnable{
         try {
             String url="https://www.usd-cny.com/bankofchina.htm";
             doc = Jsoup.connect(url).get();
-            Log.i(TAG,"hhhconnect"+doc.title());
+           // Log.i(TAG,"hhhconnect"+doc.title());
             Elements tables= doc.getElementsByTag("table");
             Element table=tables.first();
             Elements tds=table.getElementsByTag("td");
+            Elements ps=doc.getElementsByTag("p");
+            Element p=ps.get(0);
+            bd.putString("time",p.text());
             for(int i=0;i<tds.size();i+=6){
                 Element td1=tds.get(i);
                 Element td2=tds.get(i+5);
@@ -122,9 +157,7 @@ public class RateListActivity extends ListActivity implements Runnable{
                 String rate=td2.text();
                 float v=100f/Float.parseFloat(rate);
                 bd.putFloat(name,v);
-                Log.i(TAG,name+"hhhhh: "+v+"\n");
-
-
+              //  Log.i(TAG,name+"hhhhh: "+v+"\n");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -132,7 +165,7 @@ public class RateListActivity extends ListActivity implements Runnable{
         Message msg=handler.obtainMessage(4);
         msg.obj=bd;
         handler.sendMessage(msg);
-        Log.i(TAG,"hhhhsend");
+       // Log.i(TAG,"hhhhsend");
     }
 
 }
